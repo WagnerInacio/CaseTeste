@@ -1,6 +1,13 @@
 import pandas as pd
+import os
 
-df = pd.read_excel('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/dados_ACT.xlsx')
+# Caminhos relativos
+base_dir = os.path.dirname(os.path.dirname(__file__))
+data_dir = os.path.join(base_dir, 'data')
+dimensions_dir = os.path.join(base_dir, 'dimensions')
+facts_dir = os.path.join(base_dir, 'facts')
+
+df = pd.read_excel(os.path.join(data_dir, 'dados_ACT.xlsx'))
 
 df['DT_REF_MES'] = pd.to_datetime(df['DT_REF_MES'], origin='1899-12-30', unit='D')
 
@@ -40,13 +47,13 @@ fato = fato.merge(dim_indicador[['ID_Indicador', 'INDICADOR_N1', 'INDICADOR_N2']
 fato = fato.merge(dim_cenario[['ID_Cenario', 'ORIGEM', 'CENARIO']], on=['ORIGEM', 'CENARIO'], how='left')
 fato = fato[['ID_Tempo', 'ID_Local', 'ID_Produto', 'ID_Canal', 'ID_Indicador', 'ID_Cenario', 'valor']]
 
-dim_tempo.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Tempo.csv', index=False)
-dim_local.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Local.csv', index=False)
-dim_produto.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Produto.csv', index=False)
-dim_canal.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Canal.csv', index=False)
-dim_indicador.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Indicador.csv', index=False)
-dim_cenario.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Dim_Cenario.csv', index=False)
-fato.to_csv('d:/05 - PROJETOS/Teste Entrevista ACT Power BI/Fato_Vendas.csv', index=False)
+dim_tempo.to_csv(os.path.join(dimensions_dir, 'Dim_Tempo.csv'), index=False)
+dim_local.to_csv(os.path.join(dimensions_dir, 'Dim_Local.csv'), index=False)
+dim_produto.to_csv(os.path.join(dimensions_dir, 'Dim_Produto.csv'), index=False)
+dim_canal.to_csv(os.path.join(dimensions_dir, 'Dim_Canal.csv'), index=False)
+dim_indicador.to_csv(os.path.join(dimensions_dir, 'Dim_Indicador.csv'), index=False)
+dim_cenario.to_csv(os.path.join(dimensions_dir, 'Dim_Cenario.csv'), index=False)
+fato.to_csv(os.path.join(facts_dir, 'Fato_Vendas.csv'), index=False)
 
 print('Estrutura criada com sucesso!')
 print('Arquivos salvos:')

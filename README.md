@@ -1,16 +1,18 @@
-# Teste Entrevista ACT Power BI
+# Teste Power BI
 
 ## Descrição do Case
 
-Este projeto representa um teste de entrevista para a posição de desenvolvedor em Power BI na ACT. O objetivo é demonstrar a habilidade de transformar dados brutos de uma planilha Excel (`dados_ACT.xlsx`) em um modelo de dados estruturado, seguindo as melhores práticas de modelagem dimensional para Business Intelligence (BI).
+Este projeto representa um teste de entrevista para a posição de Consultor em Power BI na ACT. O objetivo é demonstrar a habilidade de transformar dados brutos de uma planilha Excel (`dados_ACT.xlsx`) em um modelo de dados estruturado, seguindo as melhores práticas de modelagem dimensional para Business Intelligence (BI).
 
-O arquivo `estrutura_dados.py` contém o código Python (utilizando a biblioteca Pandas) que processa os dados originais e os separa em tabelas dimensão e uma tabela fato, criando um esquema estrela (star schema) adequado para análises em ferramentas como Power BI.
+O arquivo `src/estrutura_dados.py` contém o código Python (utilizando a biblioteca Pandas) que processa os dados originais e os separa em tabelas dimensão e uma tabela fato, criando um esquema estrela (star schema) adequado para análises em ferramentas como Power BI.
+
+O projeto inclui também um dashboard interativo desenvolvido no Power BI (`Case_ACT.pbix`), baseado nos dados processados, e uma apresentação explicativa (`Case para vaga de Consultor Power BI-v03.pptx`).
 
 ## Estrutura dos Dados
 
-Os dados originais da planilha `dados_ACT.xlsx` contêm informações sobre vendas, incluindo datas, locais, produtos, canais, indicadores e cenários. Esses dados foram normalizados e separados da seguinte forma:
+Os dados originais da planilha `data/dados_ACT.xlsx` contêm informações sobre vendas, incluindo datas, locais, produtos, canais, indicadores e cenários. Esses dados foram normalizados e separados da seguinte forma:
 
-### Tabelas Dimensão
+### Tabelas Dimensão (em `dimensions/`)
 - **Dim_Tempo.csv**: Contém informações temporais (data de referência, ano, mês, nome do mês).
 - **Dim_Local.csv**: Contém informações geográficas (UF, cidade, DDD).
 - **Dim_Produto.csv**: Contém detalhes dos produtos (produto, plano, tecnologia, segmento).
@@ -18,7 +20,7 @@ Os dados originais da planilha `dados_ACT.xlsx` contêm informações sobre vend
 - **Dim_Indicador.csv**: Contém indicadores de nível 1 e 2.
 - **Dim_Cenario.csv**: Contém origem e cenário dos dados.
 
-### Tabela Fato
+### Tabela Fato (em `facts/`)
 - **Fato_Vendas.csv**: Contém as vendas medidas (valor), com chaves estrangeiras para as dimensões.
 
 ## Por que Separar em Tabelas Dimensão e Fato?
@@ -51,28 +53,45 @@ A separação dos dados em tabelas dimensão e fato é uma prática fundamental 
 
 ## Como Usar
 
-1. **Executar o Script**: Rode `estrutura_dados.py` para gerar os arquivos CSV a partir de `dados_ACT.xlsx`.
-2. **Importar no Power BI**: Carregue os arquivos CSV no Power BI e crie relacionamentos entre a tabela fato e as dimensões usando as chaves ID.
-3. **Criar Visualizações**: Use as dimensões para filtros e a fato para medidas em dashboards e relatórios.
+1. **Executar o Script de Processamento**:
+   - Certifique-se de ter Python e Pandas instalados.
+   - Execute `python src/estrutura_dados.py` para gerar os arquivos CSV a partir de `data/dados_ACT.xlsx`.
+
+2. **Importar no Power BI**:
+   - Abra o arquivo `Case_ACT.pbix` no Power BI Desktop.
+   - Ou, crie um novo arquivo e importe os CSVs das pastas `dimensions/` e `facts/`.
+   - Crie relacionamentos entre a tabela fato e as dimensões usando as chaves ID.
+
+3. **Visualizar a Apresentação**:
+   - Abra `Case para vaga de Consultor Power BI-v03.pptx` para entender o case e os requisitos.
 
 ## Dependências
 
 - Python 3.x
 - Pandas: `pip install pandas`
-- Arquivo `dados_ACT.xlsx` na raiz do projeto
+- Arquivo `data/dados_ACT.xlsx` (dados originais)
 
 ## Estrutura do Projeto
 
 ```
 /
-├── dados_ACT.xlsx          # Dados originais
-├── estrutura_dados.py      # Script de processamento
-├── Dim_Tempo.csv           # Dimensão Tempo
-├── Dim_Local.csv           # Dimensão Local
-├── Dim_Produto.csv         # Dimensão Produto
-├── Dim_Canal.csv           # Dimensão Canal
-├── Dim_Indicador.csv       # Dimensão Indicador
-├── Dim_Cenario.csv         # Dimensão Cenário
-├── Fato_Vendas.csv         # Tabela Fato
-└── README.md               # Este arquivo
+├── data/                          # Dados brutos
+│   └── dados_ACT.xlsx
+├── dimensions/                    # Tabelas dimensão
+│   ├── Dim_Canal.csv
+│   ├── Dim_Cenario.csv
+│   ├── Dim_Indicador.csv
+│   ├── Dim_Local.csv
+│   ├── Dim_Produto.csv
+│   └── Dim_Tempo.csv
+├── facts/                         # Tabela fato
+│   └── Fato_Vendas.csv
+├── src/                           # Código fonte
+│   └── estrutura_dados.py
+├── Img/                           # Imagens (se utilizadas)
+├── Case_ACT.pbix                  # Dashboard Power BI
+├── Case para vaga de Consultor Power BI-v03.pptx  # Apresentação
+├── README.md                      # Este arquivo
+├── .gitignore                     # Arquivos ignorados pelo Git
+└── .venv/                         # Ambiente virtual (ignorado)
 ```
