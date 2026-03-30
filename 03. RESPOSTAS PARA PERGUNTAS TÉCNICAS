@@ -1,0 +1,49 @@
+📊 Perguntas Técnicas — Respostas
+
+1. Por que você usou modelo estrela?
+Para melhorar performance, reduzir redundância e facilitar análise no Power BI.
+
+---
+
+2. Por que criou medidas ao invés de colunas?
+Medidas são calculadas dinamicamente conforme o contexto do filtro, garantindo flexibilidade.
+
+---
+
+3. Como você tratou comparativo de anos?
+Utilizei medidas dinâmicas com SELECTEDVALUE e lógica de fallback para maior ano disponível.
+
+---
+
+4. Como fez os últimos 13 meses?
+Utilizei DATESINPERIOD para capturar um período móvel baseado na última data disponível.
+
+---
+
+5. Como avaliou performance de canal?
+Utilizei scatter plot cruzando Gross (aquisição) com Churn (perda), criando análise de eficiência.
+
+---
+
+6. Por que separou churn voluntário e involuntário?
+Porque têm causas diferentes e exigem estratégias distintas.
+
+---
+
+7. Como garantir performance do modelo?
+Utilizando modelo dimensional, medidas otimizadas e evitando cálculos em colunas desnecessárias.
+
+---
+
+8. Como você pensou na UX do dashboard?
+Organização por páginas, filtros globais, cores consistentes e visuais intuitivos.
+
+---
+
+9. Como tratou sazonalidade?
+Utilizando análise de últimos 13 meses e evolução mensal.
+
+---
+
+10. Qual o principal insight possível?
+Identificar canais e regiões que crescem com baixo churn e focar neles.
